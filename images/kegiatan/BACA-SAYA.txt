@@ -1,0 +1,6 @@
+Taruh foto kegiatan sendiri di folder ini (format .jpg / .webp, disarankan lebar 1200 px, di bawah 400 KB).
+
+Lalu buka js/script.js, cari DATA_GALERI, dan tambahkan baris seperti:
+  {src:"images/kegiatan/nama-file.jpg", cap:"Keterangan foto"},
+
+Foto yang sudah ada di daftar (alamat internet) boleh dihapus atau diganti dengan foto sendiri.

@@ -85,8 +85,8 @@ section{position:relative}
 .aksi{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
 .hero-foto{padding:8px;background:var(--chrome);border-radius:42% 58% 55% 45%/50% 45% 55% 50%;box-shadow:var(--shadow)}
 .hero-foto img{border-radius:inherit;width:100%;aspect-ratio:4/3;object-fit:cover}
-.stat{grid-column:1/-1;list-style:none;display:flex;flex-wrap:wrap;gap:1rem}
-.stat li{flex:1 1 140px;padding:1rem 1.5rem;border-radius:9999px;background:var(--surface);border:1px solid var(--line);text-align:center;box-shadow:var(--shadow)}
+.stat{grid-column:1/-1;list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.stat li{padding:1rem 1.5rem;border-radius:9999px;background:var(--surface);border:1px solid var(--line);text-align:center;box-shadow:var(--shadow)}
 .stat b{display:block;font-size:2rem;color:var(--head)} .stat span{color:var(--muted);font-size:.875rem}
 .sambutan{grid-column:1/-1;display:flex;gap:1.5rem;align-items:center}
 .sambutan img{width:140px;height:140px;border-radius:50%;object-fit:cover;flex:none;border:4px solid var(--pink)}
@@ -96,30 +96,44 @@ section{position:relative}
 .card:hover{transform:scale(1.02)}
 .grid-profil{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem}
 .daftar{padding-left:1.2rem} .daftar li{margin-bottom:.4rem}
-.fasilitas{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.fasilitas{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .fasilitas figure{padding:0;overflow:hidden;margin:0}
 .fasilitas figcaption{padding:1rem 1.25rem 1.25rem}
-.fasilitas img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.f-besar{grid-column:span 2;grid-row:span 2} .f-lebar{grid-column:span 2}
+.fasilitas img{width:100%;aspect-ratio:800/520;object-fit:cover}
+.f-besar,.f-lebar{grid-column:auto;grid-row:auto}
+.fasilitas figcaption p{margin:0;color:var(--muted)}
+.fasilitas h3{margin-top:0}
 .filter{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
 .filter button{padding:.4rem 1.1rem;border-radius:9999px;border:1.5px solid var(--line);background:transparent;color:var(--head);font:500 .9rem var(--font);cursor:pointer}
 .filter button[aria-pressed=true]{background:linear-gradient(180deg,#FFA9D6,#FF69B4);color:var(--ink);border-color:transparent}
-.prestasi{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;padding:0}
-.prestasi li{padding:1.25rem;border-radius:28px;background:var(--surface);border:1px solid var(--line);animation:naik .54s ease-out both}
-.prestasi b{display:block;color:var(--head)} .prestasi small{color:var(--muted)}
-.galeri{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:1rem}
-.galeri button{padding:0;border:2px solid var(--line);border-radius:28px;overflow:hidden;cursor:pointer;background:none;transition:transform .2s}
+.prestasi{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:1rem;padding:0}
+.prestasi li{display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;border-radius:28px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);animation:naik .54s ease-out both}
+.prestasi .medali{flex:none;min-width:96px;text-align:center;padding:.35rem .7rem;border-radius:9999px;font:700 .8rem var(--font);color:#2B1240;background:var(--chrome)}
+.prestasi .medali.emas{background:linear-gradient(180deg,#FFE9A0,#F5B800)}
+.prestasi .medali.perak{background:linear-gradient(180deg,#F4F4F8,#B8B8C8)}
+.prestasi .medali.perunggu{background:linear-gradient(180deg,#F3C9A3,#CD7F32)}
+.prestasi .meta{display:block;color:var(--muted);font-size:.8rem;margin-bottom:.15rem}
+.prestasi .lomba{display:block;color:var(--head);line-height:1.3}
+.prestasi .peraih{margin:.4rem 0 0;font-weight:600;color:var(--text)}
+.sorotan{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center;padding:0;overflow:hidden;margin:0 0 2rem}
+.sorotan:hover{transform:none}
+.sorotan img{width:100%;height:100%;min-height:260px;aspect-ratio:4/3;object-fit:cover}
+.sorotan figcaption{padding:1.5rem 1.5rem 1.5rem 0}
+.sorotan h3{font-size:1.4rem;margin:.75rem 0 .5rem}
+.galeri{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.galeri button{position:relative;aspect-ratio:800/520;padding:0;border:2px solid var(--line);border-radius:28px;overflow:hidden;cursor:pointer;background:var(--alt);transition:transform .2s}
 .galeri button:hover{transform:scale(1.03)}
-.galeri button:nth-child(1){grid-column:span 2;grid-row:span 2} .galeri button:nth-child(4){grid-column:span 2}
 .galeri img{width:100%;height:100%;object-fit:cover}
-.zigzag{display:grid;gap:1.25rem;margin-bottom:2rem;max-width:760px}
-.zigzag .geser{margin-left:clamp(0px,10vw,160px)}
+.galeri span{position:absolute;inset:auto 0 0;padding:1.6rem .9rem .7rem;text-align:left;font:600 .85rem/1.3 var(--font);color:#fff;background:linear-gradient(180deg,transparent,rgba(20,6,36,.82))}
+.zigzag{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem}
+.zigzag .card p{margin:0;color:var(--muted)}
+.zigzag .card h3{margin-top:0}
 .lanjut{list-style:none;display:flex;flex-wrap:wrap;gap:.75rem;padding:0}
 .lanjut li{padding:.6rem 1.6rem;border-radius:9999px;background:var(--chrome);color:#2B1240;font-weight:600}
 
 /* Tanya AI & formulir */
-.chat{max-width:760px}
-.pesan{height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem}
+.chat{width:100%}
+.pesan{height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem}
 .pesan p{padding:.6rem 1rem;border-radius:22px;margin:0;max-width:85%;animation:naik .3s ease-out}
 .pesan .bot{background:var(--alt);align-self:flex-start} .pesan .user{background:linear-gradient(180deg,#FFA9D6,#FF69B4);color:var(--ink);align-self:flex-end}
 .cepat{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
@@ -133,7 +147,7 @@ input,select{width:100%;padding:.65rem 1rem;border-radius:9999px;border:1px soli
 .err{display:block;color:#C2185B;min-height:1em} [data-theme=dark] .err{color:#FF8FC4}
 .ok{margin-top:1rem;color:var(--head);font-weight:600}
 .grid-kontak{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem}
-.kontak{list-style:none;padding:0;margin-bottom:1rem} .kontak li{display:flex;gap:.6rem;margin-bottom:.7rem}
+.kontak{list-style:none;padding:0;margin-bottom:1rem} .kontak li{display:flex;gap:.6rem;align-items:flex-start;margin-bottom:.7rem} .kontak .ic{margin-top:.2rem}
 .peta{width:100%;min-height:340px;padding:6px}
 
 .foot{background:var(--alt);border-top:1px solid var(--line)} .foot .wrap{padding-block:2rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
@@ -147,10 +161,17 @@ input,select{width:100%;padding:.65rem 1rem;border-radius:9999px;border:1px soli
 .js .reveal{opacity:0;transform:translateY(16px)}
 .js .reveal.tampil{opacity:1;transform:none;transition:opacity .54s ease-out,transform .54s ease-out;transition-delay:var(--d,0s)}
 
+@media(max-width:1024px){
+  .fasilitas,.zigzag{grid-template-columns:repeat(2,1fr)}
+  .galeri{grid-template-columns:repeat(2,1fr)}
+  .stat{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:768px){
+  .sorotan{grid-template-columns:1fr} .sorotan figcaption{padding:0 1.25rem 1.25rem}
   .hero,.grid-profil,.grid-alumni,.grid-kontak{grid-template-columns:1fr}
-  .fasilitas{grid-template-columns:1fr 1fr} .f-besar,.f-lebar{grid-column:span 2;grid-row:auto}
-  .galeri{grid-template-columns:1fr 1fr;grid-auto-rows:140px} .galeri button:nth-child(1){grid-row:span 1}
+  .fasilitas,.zigzag{grid-template-columns:1fr}
+  .galeri{gap:.6rem}
+  .prestasi{grid-template-columns:1fr}
   .sambutan{flex-direction:column;text-align:center} .brand span{display:none}
 }
 @media(prefers-reduced-motion:reduce){

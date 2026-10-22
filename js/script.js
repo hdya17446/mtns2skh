@@ -2,28 +2,48 @@
 const AI_ENDPOINT = "";              // isi URL proxy server bila Tanya AI tersambung layanan AI sungguhan (jangan taruh kunci API di sini)
 const ALUMNI_ENDPOINT = "";          // isi URL layanan formulir (mis. Google Apps Script) agar data alumni tersimpan
 
-const DATA_PRESTASI = [ // DATA CONTOH
-  {lomba:"Olimpiade Sains Madrasah (IPA)", tingkat:"Kabupaten", tahun:2025, peraih:"Nama siswa (contoh)"},
-  {lomba:"Musabaqah Tilawatil Qur'an", tingkat:"Provinsi", tahun:2025, peraih:"Nama siswa (contoh)"},
-  {lomba:"Kompetisi Sains Madrasah (Matematika)", tingkat:"Nasional", tahun:2024, peraih:"Nama siswa (contoh)"},
-  {lomba:"Lomba Pidato Bahasa Arab", tingkat:"Kabupaten", tahun:2024, peraih:"Nama siswa (contoh)"},
-  {lomba:"Pekan Olahraga Madrasah (Futsal)", tingkat:"Provinsi", tahun:2024, peraih:"Tim futsal (contoh)"}
+/* Prestasi: dihimpun dari situs resmi mtsn2skh.sch.id dan Kanwil Kemenag Jateng.
+   Tambah data baru cukup dengan menyalin satu baris. juara = "Juara 1", "Juara 2", dst. */
+const DATA_PRESTASI = [
+  {lomba:"Olimpiade Sains Nasional (OSN)", tingkat:"Nasional", tahun:2025, juara:"Juara 1", peraih:"Dirga Anugrah Nur Affandi", kelas:"VII F2"},
+  {lomba:"KASM 2025 - Cabang IPA", tingkat:"Kabupaten", tahun:2025, juara:"Juara 1", peraih:"Qonita Nur Hanifah", kelas:"VII G"},
+  {lomba:"KASM 2025 - Cabang Matematika", tingkat:"Kabupaten", tahun:2025, juara:"Juara 1", peraih:"Naufal Farzana Wafiy", kelas:"VIII A"},
+  {lomba:"KASM 2025 - Cabang IPA", tingkat:"Kabupaten", tahun:2025, juara:"Juara 2", peraih:"Sadewa Satria Syailendra", kelas:"VII E"},
+  {lomba:"KASM 2025 - Cabang Matematika", tingkat:"Kabupaten", tahun:2025, juara:"Juara 2", peraih:"Rafanda Kirana Azzahra", kelas:"VII G"},
+  {lomba:"Kompetisi Agama dan Sains Madrasah (KASM) 2025", tingkat:"Kabupaten", tahun:2025, juara:"Juara Umum", peraih:"Kontingen MTsN 2 Sukoharjo"},
+  {lomba:"Mini Grand Champion Allievo Futsal Championship", tingkat:"Provinsi", tahun:2025, juara:"Juara 2", peraih:"Tim Futsal MTsN 2 Sukoharjo"},
+  {lomba:"Prestasi terbanyak se-Kabupaten Sukoharjo", tingkat:"Kabupaten", tahun:2025, juara:"Peringkat 2", peraih:"MTsN 2 Sukoharjo"},
+  {lomba:"ISTEC 2026 - Robotik (Grand Final)", tingkat:"Internasional", tahun:2026, juara:"Juara 2", peraih:"Tim Robotik MTsN 2 Sukoharjo"},
+  {lomba:"ISTEC 2026 - Robotik (Grand Final)", tingkat:"Internasional", tahun:2026, juara:"Juara 3", peraih:"Tim Robotik MTsN 2 Sukoharjo"}
 ];
+/* Galeri kegiatan. src = foto (boleh alamat internet atau file di folder images/).
+   fallback = gambar cadangan bila foto gagal dimuat. Untuk foto sendiri: taruh file di images/kegiatan/
+   lalu tulis src:"images/kegiatan/nama-file.jpg". */
+const K = "https://jateng.kemenag.go.id/wp-content/uploads/2026/05/";
 const DATA_GALERI = [
+  {src:K+"Mts-01.jpg", fallback:"images/galeri-1.svg", cap:"Tim robotik di ISTEC 2026, Bali"},
+  {src:K+"Mts-02.jpg", fallback:"images/galeri-2.svg", cap:"Delegasi MTsN 2 Sukoharjo di ISTEC 2026"},
+  {src:K+"Mts-03.jpg", fallback:"images/galeri-3.svg", cap:"Juara 2 dan 3 robotik internasional"},
+  {src:K+"5.png",      fallback:"images/galeri-4.svg", cap:"Dokumentasi prestasi ISTEC 2026"},
   {src:"images/galeri-1.svg", cap:"Upacara bendera"}, {src:"images/galeri-2.svg", cap:"Kegiatan Pramuka"},
-  {src:"images/galeri-3.svg", cap:"Pekan olahraga"}, {src:"images/galeri-4.svg", cap:"Tilawah dan tahfidz"},
   {src:"images/galeri-5.svg", cap:"Pentas seni"}, {src:"images/galeri-6.svg", cap:"Praktikum sains"}
 ];
 const KB = [ // basis pengetahuan Tanya AI (jawaban hanya dari info resmi madrasah)
   {k:["profil","sejarah","visi","misi","tentang"], j:"MTsN 2 Sukoharjo adalah madrasah tsanawiyah negeri di Sukoharjo, Jawa Tengah. Visinya: Madrasah Digital, Cerdas Berteknologi, Berakhlak Mulia."},
   {k:["fasilitas","aula","mushala","lab","laboratorium","perpustakaan","kelas"], j:"Fasilitas kami: aula, mushala, lab komputer, perpustakaan, lab IPA, dan ruang kelas."},
-  {k:["prestasi","juara","lomba","olimpiade"], j:"Prestasi siswa tercantum di bagian Prestasi, bisa disaring menurut tingkat."},
-  {k:["kontak","alamat","telepon","whatsapp","wa","lokasi","peta"], j:"Alamat, peta, dan WhatsApp ada di bagian Kontak di bawah halaman."},
+  {k:["prestasi","juara","lomba","olimpiade"], j:"Prestasi siswa tercantum di bagian Prestasi, bisa disaring menurut tingkat. Di antaranya Juara 2 dan 3 robotik internasional ISTEC 2026, Juara 1 OSN, dan Juara Umum KASM 2025 tingkat Kabupaten Sukoharjo."},
+  {k:["kontak","alamat","telepon","whatsapp","wa","lokasi","peta"], j:"Madrasah beralamat di Jl. KH. Agus Salim No. 48, Sukoharjo. Peta dan WhatsApp ada di bagian Kontak di bawah halaman."},
   {k:["alumni"], j:"Alumni dapat mengisi formulir di bagian Data Alumni."}
 ];
 const FALLBACK = "Maaf, informasi itu belum ada pada data saya. Silakan hubungi madrasah lewat bagian Kontak.";
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const kurangiGerak = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ===== Gambar cadangan bila foto dari internet gagal dimuat ===== */
+addEventListener("error", e => {
+  const im = e.target;
+  if(im.tagName === "IMG" && im.dataset.fallback && !im.dataset.fb){ im.dataset.fb = "1"; im.src = im.dataset.fallback; }
+}, true);
 
 /* ===== Mode terang / gelap ===== */
 function setTema(t){
@@ -78,18 +98,23 @@ btnTop.addEventListener("click", () => scrollTo({top:0}));
 if(kurangiGerak) $$(".reveal").forEach(e => e.classList.add("tampil"));
 
 /* ===== Prestasi (filter tingkat) ===== */
+const URUT = ["Internasional", "Nasional", "Provinsi", "Kabupaten"]; // urutan tampil & tombol filter
 const filter = $("#filter"), daftar = $("#daftarPrestasi");
 function tampilPrestasi(t){
   daftar.innerHTML = "";
-  DATA_PRESTASI.filter(p => t === "Semua" || p.tingkat === t).forEach((p, i) => {
-    const li = document.createElement("li"); li.style.animationDelay = i * 120 + "ms";
-    li.innerHTML = `<b></b><small></small><p></p>`;
-    $("b", li).textContent = p.lomba; $("small", li).textContent = `${p.tingkat}, ${p.tahun}`; $("p", li).textContent = p.peraih;
+  [...DATA_PRESTASI].sort((a, b) => URUT.indexOf(a.tingkat) - URUT.indexOf(b.tingkat) || b.tahun - a.tahun).filter(p => t === "Semua" || p.tingkat === t).forEach((p, i) => {
+    const li = document.createElement("li"); li.style.animationDelay = i * 90 + "ms";
+    li.innerHTML = `<span class="medali"></span><div><small class="meta"></small><b class="lomba"></b><p class="peraih"></p></div>`;
+    const m = $(".medali", li); m.textContent = p.juara;
+    if(/1$/.test(p.juara) || /Umum/.test(p.juara)) m.classList.add("emas"); else if(/2$/.test(p.juara)) m.classList.add("perak"); else if(/3$/.test(p.juara)) m.classList.add("perunggu");
+    $(".meta", li).textContent = `${p.tingkat} · ${p.tahun}`;
+    $(".lomba", li).textContent = p.lomba;
+    $(".peraih", li).textContent = p.kelas ? `${p.peraih} (${p.kelas})` : p.peraih;
     daftar.append(li);
   });
   $$("button", filter).forEach(b => b.setAttribute("aria-pressed", b.textContent === t));
 }
-["Semua", ...new Set(DATA_PRESTASI.map(p => p.tingkat))].forEach(t => {
+["Semua", ...URUT.filter(t => DATA_PRESTASI.some(p => p.tingkat === t))].forEach(t => {
   const b = document.createElement("button"); b.textContent = t; b.addEventListener("click", () => tampilPrestasi(t)); filter.append(b);
 });
 tampilPrestasi("Semua");
@@ -97,11 +122,12 @@ tampilPrestasi("Semua");
 /* ===== Galeri & lightbox ===== */
 const lb = $("#lb"); let idx = 0, pemicu;
 DATA_GALERI.forEach((g, i) => {
-  const b = document.createElement("button"); b.setAttribute("aria-label", "Perbesar foto: " + g.cap);
-  b.innerHTML = `<img loading="lazy" alt="" src="${g.src}">`; $("img", b).alt = g.cap;
+  const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", "Perbesar foto: " + g.cap);
+  b.innerHTML = `<img loading="lazy" alt="" referrerpolicy="no-referrer"><span></span>`;
+  const im = $("img", b); im.alt = g.cap; if(g.fallback) im.dataset.fallback = g.fallback; im.src = g.src; $("span", b).textContent = g.cap;
   b.addEventListener("click", () => { pemicu = b; buka(i); }); $("#galeri").append(b);
 });
-function buka(i){ idx = (i + DATA_GALERI.length) % DATA_GALERI.length; $("#lbImg").src = DATA_GALERI[idx].src; $("#lbImg").alt = $("#lbCap").textContent = DATA_GALERI[idx].cap; lb.hidden = false; $("#lbTutup").focus(); }
+function buka(i){ idx = (i + DATA_GALERI.length) % DATA_GALERI.length; const li = $("#lbImg"); delete li.dataset.fb; li.dataset.fallback = DATA_GALERI[idx].fallback || ""; li.src = DATA_GALERI[idx].src; $("#lbImg").alt = $("#lbCap").textContent = DATA_GALERI[idx].cap; lb.hidden = false; $("#lbTutup").focus(); }
 function tutup(){ lb.hidden = true; pemicu && pemicu.focus(); }
 $("#lbTutup").addEventListener("click", tutup);
 lb.addEventListener("click", e => { if(e.target === lb) tutup(); });
